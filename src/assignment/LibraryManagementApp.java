@@ -23,7 +23,7 @@ public class LibraryManagementApp {
             System.out.println("5. Exit");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
@@ -38,7 +38,8 @@ public class LibraryManagementApp {
                     newBook.setIsbn(scanner.nextLine());
                     System.out.print("Publication Year: ");
                     newBook.setPublicationYear(scanner.nextInt());
-                    scanner.nextLine(); // Consume the newline character
+                    
+                    scanner.nextLine();
                     System.out.print("Genre: ");
                     newBook.setGenre(scanner.nextLine());
                     libraryDB.addBook(newBook);
@@ -88,7 +89,6 @@ public class LibraryManagementApp {
                 case 5:
                     libraryDB.closeConnection();
                     System.out.println("Exiting the program.");
-                   // System.exit(0);
                     return;
 
                 default:

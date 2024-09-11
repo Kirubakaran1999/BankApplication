@@ -12,8 +12,6 @@ public class LibraryDatabase {
 	private Connection connection;
 
 	public LibraryDatabase() {
-		// Initialize the database connection here (replace the connection URL,
-		// username, and password with your own)
 		String dbUrl = "jdbc:mysql://localhost:3306/library_management";
 		String dbUser = "root";
 		String dbPassword = "root";
@@ -47,7 +45,6 @@ public class LibraryDatabase {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// Handle database-related errors
 		}
 	}
 
@@ -67,19 +64,6 @@ public class LibraryDatabase {
 		            throw new BookNotFoundException("Book with ISBN " + isbn + " not found. Cannot edit.");
 		        }
 			 
-			
-			/*
-			 * if (!isIsbnValid(isbn)){ System.out.println(isbn); throw new
-			 * InvalidISBNException("Invalid ISBN. Please enter a valid ISBN."); }
-			 */
-			
-			  /*
-			 * if (!isIsbnUnique(updatedBook.getIsbn()) &&
-			 * !isbn.equals(updatedBook.getIsbn())) { throw new NotUniqueBookException(
-			 * "A book with the updated ISBN already exists. Please use a different ISBN.");
-			 * }
-			 */
-
 			String sql = "UPDATE books SET title = ?, author = ?, publicationYear = ?, genre = ? WHERE isbn = ?";
 			try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 				preparedStatement.setString(1, updatedBook.getTitle());
@@ -91,7 +75,6 @@ public class LibraryDatabase {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// Handle database-related errors
 		}
 	}
 
@@ -156,7 +139,7 @@ public class LibraryDatabase {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			return false; // An error occurred, so treat it as a non-unique ISBN
+			return false;
 		}
 
 	// Helper method to check if an ISBN is valid
@@ -165,7 +148,7 @@ public class LibraryDatabase {
 		if (isbn.length() != 13 || !isbn.matches("\\d{13}")) {
 			throw new InvalidISBNException("Invalid ISBN. ISBN must be a 13-digit number.");
 		}
-		return true; // ISBN is valid
+		return true;
 	}
 	
 	
@@ -177,13 +160,13 @@ public class LibraryDatabase {
 	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
 	            if (resultSet.next()) {
 	                int count = resultSet.getInt(1);
-	                return count > 0; // Return true if a book with the ISBN exists
+	                return count > 0; 
 	            }
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-	    return false; // An error occurred, so treat it as if the book doesn't exist
+	    return false;
 	}
 
 }
